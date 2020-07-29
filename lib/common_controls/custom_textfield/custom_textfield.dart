@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-//带删除按钮的输入框
+/*
+* 带删除按钮的输入框
+* */
 
 enum TextBorderStyle { None, Line, RoundedRect }
 
@@ -23,7 +24,8 @@ class CustomTextField extends StatefulWidget {
   final EdgeInsetsGeometry contentPadding;
   final TextBorderStyle textBorderStyle;
   final ValueChanged<String> onChanged;
-  final Widget deleteIcon;
+  final Widget leftWidget;
+  final Widget rightWidget;
 
   CustomTextField({
     Key key,
@@ -44,7 +46,8 @@ class CustomTextField extends StatefulWidget {
     this.contentPadding = const EdgeInsets.all(5),
     this.textBorderStyle = TextBorderStyle.None,
     this.onChanged,
-    this.deleteIcon = const Icon(
+    this.leftWidget,
+    this.rightWidget = const Icon(
       Icons.cancel,
       color: Colors.black26,
     ),
@@ -74,6 +77,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
   Widget build(BuildContext context) {
     var customTextFieldView = new Row(
       children: <Widget>[
+        widget.leftWidget == null
+            ? Container()
+            : Container(
+          child: widget.leftWidget,
+        ),
         new Expanded(
           child: new TextField(
             controller: _textEditingController,
@@ -102,7 +110,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             ? Container()
             : strNoEmpty(_textEditingController.text)
                 ? new InkWell(
-                    child: widget.deleteIcon,
+                    child: widget.rightWidget,
                     onTap: () {
                       _textEditingController.text = '';
                       setState(() {

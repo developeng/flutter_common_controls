@@ -1,3 +1,7 @@
+/*
+* 网络加载框widget
+* */
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +29,6 @@ class DPProgressHUD {
   }
 
   static showError(BuildContext context, {String message}) {
-    dismiss(context);
     if (message != null) {
       _show(DPProgressHUDType.error, context, message: message);
     } else {
